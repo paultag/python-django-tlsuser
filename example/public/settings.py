@@ -62,6 +62,12 @@ DATABASES = {
     }
 }
 
+ADMINS = [
+    'tag@pault.ag',
+]
+
+STATIC_ROOT = "/tmp/static/static"
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

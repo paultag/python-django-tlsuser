@@ -3,7 +3,7 @@ from cryptography.x509.oid import NameOID, ExtensionOID
 
 
 class ExampleTranslator(object):
-    def get_username(self, cert):
+    def get_email(self, cert):
         # common_names = [x.value for x in cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)]
         emails = cert.extensions.get_extension_for_oid(
             ExtensionOID.SUBJECT_ALTERNATIVE_NAME,
@@ -13,3 +13,6 @@ class ExampleTranslator(object):
         if len(emails) == 0:
             return None
         return emails[0]
+
+    def get_username(self, cert):
+        return self.get_email(cert)

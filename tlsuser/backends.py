@@ -25,10 +25,13 @@ class ClientTLSBackend(object):
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
-            user = User(username=username)
+            email = translator.get_email(cert)
+            user = User(username=username, email=email)
+            user.is_active = True
             user.is_staff = is_admin
             user.is_admin = is_admin
             user.is_superuser = is_admin
+            user.backend = 'tlsuser.backends.ClientTLSBackend'
             user.save()
         return user
 
