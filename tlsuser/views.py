@@ -1,8 +1,8 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 
 
-def login(request):
+def tlslogin(request):
     user = authenticate(request)
     if user is not None:
         login(request, user)

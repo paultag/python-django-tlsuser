@@ -6,7 +6,6 @@ from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 
 
-
 class ClientTLSBackend(object):
     def authenticate(self, request):
         UserModel = get_user_model()
@@ -21,10 +20,15 @@ class ClientTLSBackend(object):
         if username is None:
             return None
 
+        is_admin = username in settings.ADMINS
+
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             user = User(username=username)
+            user.is_staff = is_admin
+            user.is_admin = is_admin
+            user.is_superuser = is_admin
             user.save()
         return user
 
