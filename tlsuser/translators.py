@@ -10,6 +10,6 @@ class ExampleTranslator(object):
         ).value.get_values_for_type(
             x509.RFC822Name,
         )
-        if not emails:
+        if len(emails) == 0:
             return None
         return emails[0]
